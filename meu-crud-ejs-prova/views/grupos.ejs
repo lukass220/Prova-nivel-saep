@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Grupos</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:900px;margin:30px auto;padding:0 15px;color:#222}
+  nav{display:flex;gap:15px;align-items:center;margin-bottom:20px;padding:10px;background:#e8f4fd;border-radius:6px}
+  nav a{color:#0b5ea8;text-decoration:none;font-weight:bold}
+  table{width:100%;border-collapse:collapse;margin-top:15px}
+  th,td{border:1px solid #ccc;padding:8px;text-align:left}
+  th{background:#0b5ea8;color:#fff}
+  input,select,textarea{padding:7px;margin:4px 0;width:100%;box-sizing:border-box}
+  button,.btn{padding:7px 14px;background:#0b5ea8;color:#fff;border:0;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+  .perigo{background:#c0392b}
+  .erro{color:#c0392b;font-weight:bold}
+  form.inline{display:inline}
+  .busca{display:flex;gap:8px}
+</style>
+</head>
+<body>
+<nav>
+  <strong>Pequenos Passos</strong>
+  <a href="/clientes">Clientes</a>
+  <a href="/grupos">Grupos</a>
+  <a href="/logout" style="margin-left:auto">Sair</a>
+</nav>
+  <h1>Grupos de Atendimento</h1>
+  <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+
+  <h3><%= editando ? 'Editar grupo' : 'Novo grupo' %></h3>
+  <form method="POST" action="<%= editando ? '/grupos/' + editando.id + '/editar' : '/grupos' %>">
+    <label>Nome</label>
+    <input type="text" name="nome" value="<%= editando ? editando.nome : '' %>" required>
+    <label>Descrição</label>
+    <textarea name="descricao" rows="2"><%= editando ? editando.descricao : '' %></textarea>
+    <button type="submit"><%= editando ? 'Salvar' : 'Cadastrar' %></button>
+    <% if (editando) { %><a class="btn" href="/grupos">Cancelar</a><% } %>
+  </form>
+
+  <table>
+    <tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Ações</th></tr>
+    <% grupos.forEach(g => { %>
+      <tr>
+        <td><%= g.id %></td>
+        <td><%= g.nome %></td>
+        <td><%= g.descricao %></td>
+        <td>
+          <a class="btn" href="/grupos/<%= g.id %>/editar">Editar</a>
+          <form class="inline" method="POST" action="/grupos/<%= g.id %>/excluir" onsubmit="return confirm('Excluir este grupo?')">
+            <button class="perigo" type="submit">Excluir</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

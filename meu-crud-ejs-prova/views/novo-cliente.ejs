@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Novo Cliente</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:900px;margin:30px auto;padding:0 15px;color:#222}
+  nav{display:flex;gap:15px;align-items:center;margin-bottom:20px;padding:10px;background:#e8f4fd;border-radius:6px}
+  nav a{color:#0b5ea8;text-decoration:none;font-weight:bold}
+  table{width:100%;border-collapse:collapse;margin-top:15px}
+  th,td{border:1px solid #ccc;padding:8px;text-align:left}
+  th{background:#0b5ea8;color:#fff}
+  input,select,textarea{padding:7px;margin:4px 0;width:100%;box-sizing:border-box}
+  button,.btn{padding:7px 14px;background:#0b5ea8;color:#fff;border:0;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+  .perigo{background:#c0392b}
+  .erro{color:#c0392b;font-weight:bold}
+  form.inline{display:inline}
+  .busca{display:flex;gap:8px}
+</style>
+</head>
+<body>
+<nav>
+  <strong>Pequenos Passos</strong>
+  <a href="/clientes">Clientes</a>
+  <a href="/grupos">Grupos</a>
+  <a href="/logout" style="margin-left:auto">Sair</a>
+</nav>
+  <h1>Novo Cliente</h1>
+  <form method="POST" action="/clientes">
+    <label>Nome completo</label>
+    <input type="text" name="nome" required>
+    <label>CPF</label>
+    <input type="text" name="cpf" required>
+    <label>E-mail</label>
+    <input type="email" name="email">
+    <label>Telefone</label>
+    <input type="text" name="telefone">
+    <label>Grupo de atendimento</label>
+    <select name="grupo_id" required>
+      <option value="">Selecione...</option>
+      <% grupos.forEach(g => { %>
+        <option value="<%= g.id %>"><%= g.nome %></option>
+      <% }) %>
+    </select>
+    <br><br>
+    <button type="submit">Cadastrar</button>
+    <a class="btn" href="/clientes">Cancelar</a>
+  </form>
+</body>
+</html>

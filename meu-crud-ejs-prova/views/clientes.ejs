@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Clientes</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:900px;margin:30px auto;padding:0 15px;color:#222}
+  nav{display:flex;gap:15px;align-items:center;margin-bottom:20px;padding:10px;background:#e8f4fd;border-radius:6px}
+  nav a{color:#0b5ea8;text-decoration:none;font-weight:bold}
+  table{width:100%;border-collapse:collapse;margin-top:15px}
+  th,td{border:1px solid #ccc;padding:8px;text-align:left}
+  th{background:#0b5ea8;color:#fff}
+  input,select,textarea{padding:7px;margin:4px 0;width:100%;box-sizing:border-box}
+  button,.btn{padding:7px 14px;background:#0b5ea8;color:#fff;border:0;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+  .perigo{background:#c0392b}
+  .erro{color:#c0392b;font-weight:bold}
+  form.inline{display:inline}
+  .busca{display:flex;gap:8px}
+</style>
+</head>
+<body>
+<nav>
+  <strong>Pequenos Passos</strong>
+  <a href="/clientes">Clientes</a>
+  <a href="/grupos">Grupos</a>
+  <a href="/logout" style="margin-left:auto">Sair</a>
+</nav>
+  <h1>Clientes / Responsáveis</h1>
+
+  <form class="busca" method="GET" action="/clientes">
+    <input type="text" name="busca" placeholder="Buscar por nome..." value="<%= busca %>">
+    <button type="submit" style="width:120px">Buscar</button>
+    <a class="btn" href="/clientes/novo" style="white-space:nowrap">+ Novo cliente</a>
+  </form>
+
+  <table>
+    <tr><th>ID</th><th>Nome</th><th>CPF</th><th>E-mail</th><th>Telefone</th><th>Grupo</th><th>Ações</th></tr>
+    <% if (clientes.length === 0) { %>
+      <tr><td colspan="7">Nenhum cliente encontrado.</td></tr>
+    <% } %>
+    <% clientes.forEach(c => { %>
+      <tr>
+        <td><%= c.id %></td>
+        <td><%= c.nome %></td>
+        <td><%= c.cpf %></td>
+        <td><%= c.email %></td>
+        <td><%= c.telefone %></td>
+        <td><%= c.grupo_nome || '—' %></td>
+        <td>
+          <a class="btn" href="/clientes/<%= c.id %>/editar">Editar</a>
+          <form class="inline" method="POST" action="/clientes/<%= c.id %>/excluir" onsubmit="return confirm('Excluir este cliente?')">
+            <button class="perigo" type="submit">Excluir</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

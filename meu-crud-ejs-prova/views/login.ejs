@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Login</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:900px;margin:30px auto;padding:0 15px;color:#222}
+  nav{display:flex;gap:15px;align-items:center;margin-bottom:20px;padding:10px;background:#e8f4fd;border-radius:6px}
+  nav a{color:#0b5ea8;text-decoration:none;font-weight:bold}
+  table{width:100%;border-collapse:collapse;margin-top:15px}
+  th,td{border:1px solid #ccc;padding:8px;text-align:left}
+  th{background:#0b5ea8;color:#fff}
+  input,select,textarea{padding:7px;margin:4px 0;width:100%;box-sizing:border-box}
+  button,.btn{padding:7px 14px;background:#0b5ea8;color:#fff;border:0;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+  .perigo{background:#c0392b}
+  .erro{color:#c0392b;font-weight:bold}
+  form.inline{display:inline}
+  .busca{display:flex;gap:8px}
+</style>
+</head>
+<body style="max-width:380px">
+  <h1>Login</h1>
+  <% if (erro) { %><p class="erro"><%= erro %></p><% } %>
+  <form method="POST" action="/login">
+    <label>CPF</label>
+    <input type="text" name="cpf" required>
+    <label>Senha</label>
+    <input type="password" name="senha" required>
+    <br><br>
+    <button type="submit">Entrar</button>
+  </form>
+</body>
+</html>
